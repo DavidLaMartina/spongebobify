@@ -16,15 +16,19 @@ fn main() {
 }
 
 fn alternate_case(input: &str) -> String {
-    input
-        .chars()
-        .enumerate()
-        .map(|(i, c)| {
-            if i % 2 == 0 {
-                c.to_uppercase().collect::<String>()
-            } else {
-                c.to_lowercase().collect::<String>()
-            }
-        })
-        .collect::<String>()
+    let mut result = String::new();
+    let mut upper_case = true;
+    for c in input.chars() {
+        if !c.is_alphabetic() {
+            result.push(c);
+        }
+        else if upper_case {
+            result.push(c.to_ascii_uppercase());
+            upper_case = !upper_case;
+        } else {
+            result.push(c.to_ascii_lowercase());
+            upper_case = !upper_case;
+        }
+    }
+    result
 }

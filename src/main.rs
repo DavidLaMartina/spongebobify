@@ -16,7 +16,8 @@ fn main() {
 }
 
 fn alternate_case(input: &str) -> String {
-    let mut result = String::new();
+    let mut result = String::with_capacity(input.len());
+    assert_eq!(result.capacity(), input.len());
     let mut upper_case = true;
     for c in input.chars() {
         if !c.is_alphabetic() {

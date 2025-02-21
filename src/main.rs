@@ -1,6 +1,5 @@
-// use ferris_says::say;
-// use std::io::{stdout, BufWriter};
 use std::env;
+use cli_clipboard::{ClipboardContext, ClipboardProvider};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -12,6 +11,7 @@ fn main() {
 
     let input = &args[1];
     let alternating_case = alternate_case(input);
+    copy_to_clipboard(&alternating_case);
     println!("{}", alternating_case);
 }
 
@@ -32,4 +32,10 @@ fn alternate_case(input: &str) -> String {
         }
     }
     result
+}
+
+fn copy_to_clipboard(input: &str) {
+    let mut ctx = ClipboardContext::new().unwrap();
+    ctx.set_contents(input.to_owned()).unwrap();
+    assert_eq!(ctx.get_contents().unwrap(), input.to_owned());
 }
